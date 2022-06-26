@@ -1,5 +1,8 @@
-# Environmental  stuff.
+# Environmental stuff.
 /build/
+
+# Personal stuff.
+/.ninja/secret.ninja
 
 *.exe
 *.ninja_log
