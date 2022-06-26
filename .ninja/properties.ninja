@@ -1,4 +1,4 @@
 # Project Properties File
-project_name = sample
-project_title = Sample
+project_name = tools
+project_title = Tools
 build_dir = build\x64\

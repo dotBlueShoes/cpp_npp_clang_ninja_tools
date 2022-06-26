@@ -1,11 +1,11 @@
 <NotepadPlus>
-    <Project name="sample">
+    <Project name="tools">
         <Folder name="inc">
-            <File name="sample\inc\sample.hpp" />
+            <File name="tools\inc\sample.hpp" />
         </Folder>
         <Folder name="src">
-            <File name="sample\src\main.cpp" />
-            <File name="sample\src\sample.cpp" />
+            <File name="tools\src\main.cpp" />
+            <File name="tools\src\sample.cpp" />
         </Folder>
     </Project>
     <Project name="lib">
