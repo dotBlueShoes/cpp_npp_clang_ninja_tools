@@ -1,0 +1,2 @@
+Because notepad++ does not add new files to projects automatically we have to do it ourselfes.
+Therefore this scripts removes old project connections and readds with the ones that got just created.

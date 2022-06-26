@@ -1,0 +1,7 @@
+
+so lets say i write the followig:
+
+view ClassName.
+
+will give me all methods and variables inside with the information of whether it's a public or a private.
+maybe witch commentary if there is one.

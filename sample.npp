@@ -1,0 +1,19 @@
+<NotepadPlus>
+    <Project name="sample">
+        <Folder name="inc">
+            <File name="sample\inc\sample.hpp" />
+        </Folder>
+        <Folder name="src">
+            <File name="sample\src\main.cpp" />
+            <File name="sample\src\sample.cpp" />
+        </Folder>
+    </Project>
+    <Project name="lib">
+        <Folder name="inc">
+            <File name="lib\inc\lib_sample.hpp" />
+        </Folder>
+        <Folder name="src">
+            <File name="lib\src\lib_sample.cpp" />
+        </Folder>
+    </Project>
+</NotepadPlus>

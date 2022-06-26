@@ -1,0 +1,5 @@
+there is just a lot of things to go thourgh
+
+so this would create project folder
+project.npp file with it's contents 
+and open this project

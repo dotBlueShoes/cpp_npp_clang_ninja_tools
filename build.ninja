@@ -1,0 +1,71 @@
+# https://ninja-build.org/manual.html
+# https://clang.llvm.org/get_started.html
+# https://clang.llvm.org/docs/ClangCommandLineReference.html
+# https://clang.llvm.org/docs/UsersManual.html
+# https://npp-user-manual.org/docs/session/
+
+# TODO, ToLearn
+#  4. See for information on what execlty is running and when...
+#  compilation, linking, building process exaclly i want to know that well...
+#  5. Make it all easy to update somehow. clang, ninja, powershell, notepad++
+#  7. Try getting a notepad++ highlighter for .ninja files.
+#  8. Make a build and run chain.
+#  9. Make it able to have libs connected to the build
+#  -. Run troghol and winapi projects here.
+
+# dependencing
+# https://ninja-build.org/manual.html#ref_dependencies
+
+# GRAVEYARD
+# Older version in which args are takes as $in and the command itself as $out.
+# rule cc
+#   command = clang++ $compileFlags $in -o $out
+# build Sample.exe : cc sample/src/sample.cpp sample/src/main.cpp 
+
+include properties.ninja
+
+# Ninja variables
+
+builddir = $build_dir
+
+# Compilation Arguments :
+
+#  Linux only using linux subcommands which due to '$' collide with build.ninja.
+#   I think it's best to keep src and inc info outside and add them remove them 
+#   automatically, also the project.npp could be editted too.
+#   build refresh ?, rfh ?
+#   $(find $project_path$project_name\src -name "*.cpp")
+
+srcList = lib\src\lib_sample.cpp sample\src\sample.cpp sample\src\main.cpp
+globalIncludePath = sample\inc
+libIncludePath = $project_path\lib\inc
+errorLimit = 10
+cppStandard = -std=c++20
+
+# Windows Terminal Arguments :
+
+tabColor = "#000"
+
+# RULES
+
+rule compile
+  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath -I $libIncludePath $srcList -o $build_dir$project_title.exe
+
+rule clear
+  command = rm $build_dir$project_title.exe
+  
+rule run
+  command = wt -w 1 --title project_title --tabColor $tabColor $project_path$build_dir$project_title.exe
+  
+rule setup
+  ## To get the properties file set.
+  ##  - project path
+  ## And other in future.
+  command = echo lol
+  
+# BUILDS
+  
+build bld : compile
+build cls : clear
+build stp : setup
+build run : run
