@@ -1,0 +1,5 @@
+# Environmental  stuff.
+/build/
+
+*.exe
+*.ninja_log

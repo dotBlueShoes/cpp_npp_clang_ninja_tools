@@ -22,7 +22,8 @@
 #   command = clang++ $compileFlags $in -o $out
 # build Sample.exe : cc sample/src/sample.cpp sample/src/main.cpp 
 
-include properties.ninja
+include .ninja\properties.ninja
+include .ninja\secret.ninja
 
 # Ninja variables
 
@@ -37,10 +38,13 @@ builddir = $build_dir
 #   $(find $project_path$project_name\src -name "*.cpp")
 
 srcList = lib\src\lib_sample.cpp sample\src\sample.cpp sample\src\main.cpp
-globalIncludePath = sample\inc
-libIncludePath = $project_path\lib\inc
+globalIncludePath = $project_name\inc
 errorLimit = 10
 cppStandard = -std=c++20
+
+# Libraries
+
+libIncludePath = lib\inc
 
 # Windows Terminal Arguments :
 
