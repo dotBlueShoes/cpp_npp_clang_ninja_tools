@@ -54,13 +54,13 @@ rule clear
   command = rm $build_dir$project_title.exe
   
 rule run
-  command = wt -w 1 --title $project_title --tabColor $tabColor $project_path$build_dir$project_title.exe
+  command = cmd /c wt -w 1 --title $project_title --tabColor $tabColor $project_path$build_dir$project_title.exe %cd%
   
 rule setup
   ## To get the properties file set.
   ##  - project path
   ## And other in future.
-  command = echo lol
+  command = cmd /c echo %cd%
   
 # BUILDS
   
