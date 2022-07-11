@@ -1,9 +1,5 @@
-#include <filesystem>
-#include <windows.h>
-#include <iostream>
-#include <fstream>
-#include <vector>
-
+#include "Framework.hpp"
+#include "NppProcessor.hpp"
 #include "sample.hpp"
 #include "lib_sample.hpp"
 
@@ -22,14 +18,10 @@
 //  changed constanly in a loop for functions to look for other tokens. 
 //  Also yeah that can be easier implemented... 
 
-using std::ifstream;
-using std::ofstream;
-using std::string;
-using std::vector;
 
-std::string parse(std::string line, const string projectPath) {
-	const string projectPathToken = "project_path";
-	bool isToken = false;
+std::string parseSecret(std::string line, const string projectPath) {
+	const string projectPathToken { "project_path" };
+	bool isToken { false };
 	size_t i = 0;
 	
 	for (; i < projectPathToken.length(); i++) {
@@ -53,8 +45,8 @@ std::string parse(std::string line, const string projectPath) {
 }
 
 int setup(const string projectPath) {
-	const string originPath = ".ninja\\secret.ninja",
-		resultPath = ".ninja\\_secret.ninja";
+	const string originPath { ".ninja\\secret.ninja" } ,
+		resultPath { ".ninja\\_secret.ninja" };
 	
 	vector<string> data;
 	string line;
@@ -62,32 +54,88 @@ int setup(const string projectPath) {
 	ifstream originFile(originPath);
 	ofstream resultFile(resultPath);
 
-	// READ
-	if (originFile.is_open()) {
+	
+	if (originFile.is_open() && resultFile.is_open()) {
+		
+		// READ
 		while (getline(originFile, line))
 			data.push_back(line);
 		originFile.close();
-	} else std::cout << "File-Open-Error\n";
-
-	// WRITE
-	for (size_t i = 0; i < data.size(); i++)
-		resultFile << parse(data[i], projectPath);
-	resultFile.close();
+		
+		// WRITE
+		for (size_t i = 0; i < data.size(); i++)
+			resultFile << parseSecret(data[i], projectPath);
+		resultFile.close();
+		
+		// REPLACE (Is this the safest way?)
+		if (filesystem::remove(originPath)) {
+			filesystem::rename(resultPath, originPath);
+			return 0;
+		}
+		
+	} else 
+		std::cerr << "Error: Opening or creating the file.\n";
 	
-	// REPLACE (Is this the safest way?)
-	std::filesystem::remove(originPath);
-	std::filesystem::rename(resultPath, originPath);
-	
-	return 0;
+	std::cerr << "Error: Removing old file.\n";
+	return 1;
 }
 
 // Specific to windows unicode main function.
 // int wmain(int argumentsLength, wchar_t* arguments[])
+
+namespace tokens {
+	const string 
+		setupFull = "--setup", setupShort = "-s",
+		reprojectFull = "--refresh-npp", reprojectShort = "-r";
+}
 	
-int main(int argumentsLength, char* arguments[]) {
-	std::cout << "ProjectPath = "<< arguments[1] << "\\\n";
+int main(const int argumentsLength, const char** arguments) {
+	bool isEqual = true;
 	
-	setup(arguments[1]);
+	//std::cout << "ProjectPath = "<< arguments[2] << "\\\n";
+	
+	for (size_t i = 0; arguments[1][i] != '\0'; i++)
+		if (arguments[1][i] != tokens::setupFull[i]) {
+			isEqual = false;
+			break;
+		}
+		
+	if (isEqual) { setup(arguments[2]); return 0; }
+	isEqual = true;
+		
+	for (size_t i = 0; arguments[1][i] != '\0'; i++)
+		if (arguments[1][i] != tokens::setupShort[i]) {
+			isEqual = false;
+			break;
+		}
+		
+	if (isEqual) { setup(arguments[2]); return 0; }
+	isEqual = true;
+	
+	for (size_t i = 0; arguments[1][i] != '\0'; i++)
+		if (arguments[1][i] != tokens::reprojectFull[i]) {
+			isEqual = false;
+			break;
+		}
+		
+	if (isEqual) { 
+		const char* projects[] { arguments[3], arguments[4] }; 
+		NppProcessor::refreshNpp(arguments[2], 2, projects); 
+		return 0;
+	} isEqual = true;
+		
+	for (size_t i = 0; arguments[1][i] != '\0'; i++)
+		if (arguments[1][i] != tokens::reprojectShort[i]) {
+			isEqual = false;
+			break;
+		}
+		
+	if (isEqual) { 
+		const char* projects[] { arguments[3], arguments[4] }; 
+		NppProcessor::refreshNpp(arguments[2], 2, projects); 
+		return 0;
+	}
+	
 	
 	std::cin.get();
 	return 0;
