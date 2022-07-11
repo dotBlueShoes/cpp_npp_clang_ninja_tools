@@ -5,4 +5,5 @@
 /.ninja/secret.ninja
 
 *.exe
+*.npp
 *.ninja_log

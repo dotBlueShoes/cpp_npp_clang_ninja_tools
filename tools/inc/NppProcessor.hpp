@@ -35,23 +35,24 @@ namespace NppProcessor {
 		const string originPath = projectFilePath,
 			resultPath = projectFilePath + ".temp";
 	
-		vector<string> data;
-		string buffor, line;
+		//vector<string> data;
+		string buffor;
 
-		ifstream originFile(originPath);
+		//ifstream originFile(originPath);
 		ofstream resultFile(resultPath);
 			
 		buffor.reserve(_MAX_PATH);
 	
 		// READ
-		if (originFile.is_open() && resultFile.is_open()) {
-			while (getline(originFile, line))
-				data.push_back(line);
-			originFile.close();
-		} else std::cerr << "Error: Opening or creating the file.\n";
-			
+		//if (originFile.is_open() && resultFile.is_open()) {
+		//	while (getline(originFile, line))
+		//		data.push_back(line);
+		//	originFile.close();
+		//} else std::cerr << "Error: Opening or creating the file.\n";
 		// Get the first line in.
-		resultFile << data[0] << '\n';
+		//resultFile << data[0] << '\n';
+		
+		resultFile << "<NotepadPlus>\n";
 			
 		// WRITE
 		for (size_t i = 0; i < length; i++) {
@@ -117,9 +118,9 @@ namespace NppProcessor {
 		resultFile.close();	
 			
 		// REPLACE
-		if (filesystem::remove(originPath)) {
-			filesystem::rename(resultPath, originPath);
-		}
+		// Should do a check here.
+		filesystem::remove(originPath);
+		filesystem::rename(resultPath, originPath);
 	
 		return 0;
 	}
