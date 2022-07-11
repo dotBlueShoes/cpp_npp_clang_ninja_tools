@@ -1,40 +1,16 @@
 <NotepadPlus>
 	<Project name="tools">
 		<Folder name="bld">
-			<File name="build.ninja" />
-			<File name=".ninja\properties.ninja" />
-			<File name=".ninja\secret.ninja" />
+			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\build.ninja" />
+			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\.ninja\properties.ninja" />
+			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\.ninja\secret.ninja" />
 		</Folder>
 		<Folder name="inc">
 			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\inc\Framework.hpp" />
 			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\inc\NppProcessor.hpp" />
-			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\inc\sample.hpp" />
-			<Folder name="what">
-				<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\inc\what\what.hpp" />
-			</Folder>
-			<Folder name="window">
-				<Folder name="special">
-					<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\inc\window\special\special.hpp" />
-				</Folder>
-				<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\inc\window\window.hpp" />
-			</Folder>
 		</Folder>
 		<Folder name="src">
 			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\src\main.cpp" />
-			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\tools\src\sample.cpp" />
-		</Folder>
-	</Project>
-	<Project name="lib">
-		<Folder name="bld">
-			<File name="build.ninja" />
-			<File name=".ninja\properties.ninja" />
-			<File name=".ninja\secret.ninja" />
-		</Folder>
-		<Folder name="inc">
-			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\lib\inc\lib_sample.hpp" />
-		</Folder>
-		<Folder name="src">
-			<File name="D:\Storage\Projects\Cpp_Npp_CLang_Ninja\cpp_npp_clang_ninja_tools\lib\src\lib_sample.cpp" />
 		</Folder>
 	</Project>
 </NotepadPlus>

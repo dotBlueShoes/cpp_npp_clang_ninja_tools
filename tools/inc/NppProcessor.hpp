@@ -31,10 +31,6 @@ namespace NppProcessor {
 		const size_t length, 
 		const char** projects
 	) {
-		
-		// NOW
-		// All cool but i think i want build catalog in which we will contain...
-		// build.ninja and .ninja files. 
 
 		const string originPath = projectFilePath,
 			resultPath = projectFilePath + ".temp";
@@ -71,14 +67,17 @@ namespace NppProcessor {
 			// BUILD
 			resultFile << "\t\t<Folder name=\"" << tokens::build << "\">\n";
 			
-			//buffor.append(projectFilePath);
-			//buffor.append("\\");
-			buffor.append(tokens::ninja);
-			
 			{
-				const filesystem::path path { buffor };
+				const filesystem::path path { projects[i] };
 				string indentation = "\t\t\t";
-				resultFile << indentation << "<File name=\"" << "build.ninja" << "\" />\n";
+				
+				buffor.append(path.parent_path().string());
+				
+				resultFile << indentation << "<File name=\"" << buffor << "\\build.ninja" << "\" />\n";
+				
+				buffor.append("\\");
+				buffor.append(tokens::ninja);
+			
 				recursiveFolderParse(resultFile, buffor, indentation);
 			}
 			
@@ -91,7 +90,6 @@ namespace NppProcessor {
 			buffor.append(tokens::include);
 				
 			{
-				const filesystem::path path { buffor };
 				string indentation = "\t\t\t";
 				recursiveFolderParse(resultFile, buffor, indentation);
 			}
@@ -105,7 +103,6 @@ namespace NppProcessor {
 			buffor.append(tokens::source);
 				
 			{
-				const filesystem::path path { buffor };
 				string indentation = "\t\t\t";
 				recursiveFolderParse(resultFile, buffor, indentation);
 			}

@@ -29,14 +29,9 @@ include .ninja\secret.ninja
 
 builddir = $buildDir
 
-# Libraries
-
-libName = lib
-libIncludePath = $libName\inc
-
 # Compilation Arguments :
 
-srcList = $libName\src\lib_sample.cpp $projectName\src\sample.cpp $projectName\src\main.cpp
+srcList =  $projectName\src\main.cpp
 globalIncludePath = $projectName\inc
 errorLimit = 10
 cppStandard = -std=c++20
@@ -48,7 +43,7 @@ tabColor = "#000"
 # RULES
 
 rule compile
-  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath -I $libIncludePath $srcList -o $buildDir$projectTitle.exe
+  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -o $buildDir$projectTitle.exe
 
 rule clear
   command = rm $buildDir$projectTitle.exe
@@ -57,7 +52,7 @@ rule setup
   command = cmd /c wt -w 1 --title $projectTitle --tabColor $tabColor $projectPath\$buildDir$projectTitle.exe --setup %cd%
   
 rule refresh
-  command = cmd /c $toolsPath --refresh-npp tools.npp $projectPath\$projectName $projectPath\$libName
+  command = cmd /c $toolsPath --refresh-npp tools.npp $projectPath\$projectName
 # BUILDS
   
 build bld : compile

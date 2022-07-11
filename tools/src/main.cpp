@@ -1,7 +1,5 @@
 #include "Framework.hpp"
 #include "NppProcessor.hpp"
-#include "sample.hpp"
-#include "lib_sample.hpp"
 
 // 1. re-create tools.npp file so it will contain all the files there are in those folders.
 // 2. setup script that will
@@ -120,7 +118,7 @@ int main(const int argumentsLength, const char** arguments) {
 		
 	if (isEqual) { 
 		const char* projects[] { arguments[3], arguments[4] }; 
-		NppProcessor::refreshNpp(arguments[2], 2, projects); 
+		NppProcessor::refreshNpp(arguments[2], argumentsLength - 3, projects); 
 		return 0;
 	} isEqual = true;
 		
@@ -132,7 +130,7 @@ int main(const int argumentsLength, const char** arguments) {
 		
 	if (isEqual) { 
 		const char* projects[] { arguments[3], arguments[4] }; 
-		NppProcessor::refreshNpp(arguments[2], 2, projects); 
+		NppProcessor::refreshNpp(arguments[2], argumentsLength - 3, projects); 
 		return 0;
 	}
 	
