@@ -49,7 +49,7 @@ rule clear
   command = rm $buildDir$projectTitle.exe
   
 rule setup
-  command = cmd /c wt -w 1 --title $projectTitle --tabColor $tabColor $projectPath\$buildDir$projectTitle.exe --setup %cd%
+  command = cmd /c wt -w 1 --title $projectTitle --tabColor $tabColor $toolsPath --setup %cd%
   
 rule refresh
   command = cmd /c $toolsPath --refresh-npp tools.npp $projectPath\$projectName

@@ -18,7 +18,7 @@
 
 
 std::string parseSecret(std::string line, const string projectPath) {
-	const string projectPathToken { "project_path" };
+	const string projectPathToken { "projectPath" };
 	bool isToken { false };
 	size_t i = 0;
 	
@@ -32,9 +32,10 @@ std::string parseSecret(std::string line, const string projectPath) {
 	
 	if (isToken) {
 		string temp;
-		temp += "project_path = ";
+		temp += projectPathToken;
+		temp +=	" = ";
 		temp += projectPath;
-		temp += "\\\n";
+		temp += "\n";
 		return temp;
 	}
 	
@@ -48,6 +49,8 @@ int setup(const string projectPath) {
 	
 	vector<string> data;
 	string line;
+	
+	std::cout << projectPath << '\n';
 
 	ifstream originFile(originPath);
 	ofstream resultFile(resultPath);
@@ -75,7 +78,7 @@ int setup(const string projectPath) {
 		std::cerr << "Error: Opening or creating the file.\n";
 	
 	std::cerr << "Error: Removing old file.\n";
-	return 1;
+	return 0;
 }
 
 // Specific to windows unicode main function.
@@ -90,16 +93,15 @@ namespace tokens {
 int main(const int argumentsLength, const char** arguments) {
 	bool isEqual = true;
 	
-	//std::cout << "ProjectPath = "<< arguments[2] << "\\\n";
-	
 	for (size_t i = 0; arguments[1][i] != '\0'; i++)
 		if (arguments[1][i] != tokens::setupFull[i]) {
 			isEqual = false;
 			break;
 		}
 		
-	if (isEqual) { setup(arguments[2]); return 0; }
+	if (isEqual) { setup(arguments[2]); return 0;}
 	isEqual = true;
+		
 		
 	for (size_t i = 0; arguments[1][i] != '\0'; i++)
 		if (arguments[1][i] != tokens::setupShort[i]) {
@@ -109,6 +111,7 @@ int main(const int argumentsLength, const char** arguments) {
 		
 	if (isEqual) { setup(arguments[2]); return 0; }
 	isEqual = true;
+	
 	
 	for (size_t i = 0; arguments[1][i] != '\0'; i++)
 		if (arguments[1][i] != tokens::reprojectFull[i]) {
@@ -121,6 +124,7 @@ int main(const int argumentsLength, const char** arguments) {
 		NppProcessor::refreshNpp(arguments[2], argumentsLength - 3, projects); 
 		return 0;
 	} isEqual = true;
+		
 		
 	for (size_t i = 0; arguments[1][i] != '\0'; i++)
 		if (arguments[1][i] != tokens::reprojectShort[i]) {
