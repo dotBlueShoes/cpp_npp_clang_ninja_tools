@@ -3,6 +3,8 @@
 # https://clang.llvm.org/docs/ClangCommandLineReference.html
 # https://clang.llvm.org/docs/UsersManual.html
 # https://npp-user-manual.org/docs/session/
+# https://ninja-build.org/manual.html#ref_rule_command
+# https://ninja-build.org/manual.html#ref_dependencies
 
 # TODO, ToLearn
 #  4. See for information on what execlty is running and when...
@@ -12,9 +14,6 @@
 #  8. Make a build and run chain.
 #  9. Make it able to have libs connected to the build
 #  -. Run troghol and winapi projects here.
-
-# dependencing
-# https://ninja-build.org/manual.html#ref_dependencies
 
 # GRAVEYARD
 # Older version in which args are takes as $in and the command itself as $out.
