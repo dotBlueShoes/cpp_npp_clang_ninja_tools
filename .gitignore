@@ -3,6 +3,7 @@
 
 # Personal stuff.
 /.ninja/secret.ninja
+/.vscode/
 
 *.exe
 *.npp

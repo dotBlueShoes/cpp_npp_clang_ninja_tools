@@ -16,8 +16,7 @@
 //  changed constanly in a loop for functions to look for other tokens. 
 //  Also yeah that can be easier implemented... 
 
-
-std::string parseSecret(std::string line, const string projectPath) {
+string parseSecret(string line, const string projectPath) {
 	const string projectPathToken { "projectPath" };
 	bool isToken { false };
 	size_t i = 0;
@@ -44,7 +43,7 @@ std::string parseSecret(std::string line, const string projectPath) {
 }
 
 int setup(const string projectPath) {
-	const string originPath { ".ninja\\secret.ninja" } ,
+	const string originPath { ".ninja\\secret.ninja" },
 		resultPath { ".ninja\\_secret.ninja" };
 	
 	vector<string> data;
@@ -54,7 +53,6 @@ int setup(const string projectPath) {
 
 	ifstream originFile(originPath);
 	ofstream resultFile(resultPath);
-
 	
 	if (originFile.is_open() && resultFile.is_open()) {
 		
@@ -134,7 +132,9 @@ int main(const int argumentsLength, const char** arguments) {
 		
 	if (isEqual) { 
 		const char* projects[] { arguments[3], arguments[4] }; 
-		NppProcessor::refreshNpp(arguments[2], argumentsLength - 3, projects); 
+		{ using namespace NppProcessor;
+			refreshNpp(arguments[2], argumentsLength - 3, projects); 
+		}
 		return 0;
 	}
 	
