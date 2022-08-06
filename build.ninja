@@ -1,25 +1,7 @@
-# https://ninja-build.org/manual.html
-# https://clang.llvm.org/get_started.html
 # https://clang.llvm.org/docs/ClangCommandLineReference.html
-# https://clang.llvm.org/docs/UsersManual.html
 # https://npp-user-manual.org/docs/session/
-# https://ninja-build.org/manual.html#ref_rule_command
-# https://ninja-build.org/manual.html#ref_dependencies
-
-# TODO, ToLearn
-#  4. See for information on what execlty is running and when...
-#  compilation, linking, building process exaclly i want to know that well...
-#  5. Make it all easy to update somehow. clang, ninja, powershell, notepad++
-#  7. Try getting a notepad++ highlighter for .ninja files.
-#  8. Make a build and run chain.
-#  9. Make it able to have libs connected to the build
-#  -. Run troghol and winapi projects here.
-
-# GRAVEYARD
-# Older version in which args are takes as $in and the command itself as $out.
-# rule cc
-#   command = clang++ $compileFlags $in -o $out
-# build Sample.exe : cc sample/src/sample.cpp sample/src/main.cpp 
+# https://clang.llvm.org/get_started.html
+# https://ninja-build.org/manual.html
 
 include .ninja\properties.ninja
 include .ninja\secret.ninja
@@ -32,8 +14,13 @@ builddir = $buildDir
 
 srcList =  $projectName\src\main.cpp
 globalIncludePath = $projectName\inc
-errorLimit = 10
 cppStandard = -std=c++20
+errorLimit = 10
+
+releasePath = 
+debugPath = debug
+64bitPath = x64
+86bitPath = x86
 
 # Windows Terminal Arguments :
 
@@ -41,8 +28,14 @@ tabColor = "#000"
 
 # RULES
 
-rule compile
-  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -o $buildDir$projectTitle.exe
+rule release64bitCompile
+  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -o $buildDir\$64bitPath$releasePath\$projectTitle.exe
+rule debug64bitCompile
+  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList --debug -o $buildDir\$64bitPath\$debugPath\$projectTitle.exe
+rule release32bitCompile
+  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -m32 -o $buildDir\$86bitPath$releasePath\$projectTitle.exe
+rule debug32bitCompile
+  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -m32 --debug -o $buildDir\$86bitPath\$debugPath\$projectTitle.exe
 
 rule clear
   command = rm $buildDir$projectTitle.exe
@@ -52,9 +45,12 @@ rule setup
   
 rule refresh
   command = cmd /c $toolsPath --refresh-npp tools.npp $projectPath\$projectName
+  
 # BUILDS
   
-build bld : compile
+build bld : release64bitCompile
+build dbg : debug64bitCompile
 build cls : clear
 build stp : setup
 build rsh : refresh
+build run : regresh

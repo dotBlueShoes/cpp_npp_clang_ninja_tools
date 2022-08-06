@@ -1,4 +1,4 @@
 # Project Properties File
 projectName = tools
 projectTitle = Tools
-buildDir = build\x64\
+buildDir = build
