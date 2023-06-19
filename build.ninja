@@ -28,14 +28,23 @@ tabColor = "#000"
 
 # RULES
 
+rule release64bitRun
+  command = $projectPath\$buildDir\$64bitPath\$releasePath$projectTitle.exe
+rule debug64bitRun
+  command = $projectPath\$buildDir\$64bitPath\$debugPath\$projectTitle.exe
+rule release32bitRun
+  command = $projectPath\$buildDir\$86bitPath\$releasePath$projectTitle.exe
+rule debug32bitRun
+  command = $projectPath\$buildDir\$86bitPath\$debugPath\$projectTitle.exe
+
 rule release64bitCompile
-  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -o $buildDir\$64bitPath$releasePath\$projectTitle.exe
+  command = $compilerPath -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -o $buildDir\$64bitPath$releasePath\$projectTitle.exe
 rule debug64bitCompile
-  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList --debug -o $buildDir\$64bitPath\$debugPath\$projectTitle.exe
+  command = $compilerPath -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList --debug -o $buildDir\$64bitPath\$debugPath\$projectTitle.exe
 rule release32bitCompile
-  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -m32 -o $buildDir\$86bitPath$releasePath\$projectTitle.exe
+  command = $compilerPath -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -m32 -o $buildDir\$86bitPath$releasePath\$projectTitle.exe
 rule debug32bitCompile
-  command = clang++ -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -m32 --debug -o $buildDir\$86bitPath\$debugPath\$projectTitle.exe
+  command = $compilerPath -Wall $cppStandard -ferror-limit=$errorLimit -I $globalIncludePath $srcList -m32 --debug -o $buildDir\$86bitPath\$debugPath\$projectTitle.exe
 
 rule clear
   command = rm $buildDir$projectTitle.exe
@@ -49,8 +58,10 @@ rule refresh
 # BUILDS
   
 build bld : release64bitCompile
-build dbg : debug64bitCompile
+build dbb : debug64bitCompile
+build run : release64bitRun
+build dbr : debug64bitRun
+
 build cls : clear
 build stp : setup
 build rsh : refresh
-build run : regresh
